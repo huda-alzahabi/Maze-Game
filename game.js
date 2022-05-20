@@ -3,6 +3,10 @@ var score = 0;
 
 function press_start() {
     document.getElementById("start").addEventListener("click", reset_game, false);
+    document
+        .getElementsByClassName("boundary")
+        .item(4)
+        .innerHTML("SCORE:", score);
 }
 
 function start_game() {
@@ -18,8 +22,6 @@ function start_game() {
     //win lose b id status
     //change innerhtml to you lost
     //handle cheating alert,onmouseleave  id game
-    //after clicking on E, the game should end all conditions should no longer be valid
-    //onmouseleave  id game
 }
 
 function color_divs() {
@@ -47,4 +49,6 @@ function end_game() {
             .removeEventListener("mouseover", color_divs);
     }
     document.getElementById("end").removeEventListener("click", end_game, false);
+    if (score > 0) document.getElementById("status").innerHTML("You Win");
+    else document.getElementById("status").innerHTML("You Lose");
 }
