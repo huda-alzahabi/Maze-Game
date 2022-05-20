@@ -12,10 +12,12 @@ function start_game() {
             .item(i)
             .addEventListener("mouseover", color_divs);
     }
+    document.getElementById("end").addEventListener("click", end_game, false);
+
     //score -10 when lose, +5 when win
     //win lose b id status
     //change innerhtml to you lost
-    //handle cheating alert
+    //handle cheating alert,onmouseleave  id game
     //after clicking on E, the game should end all conditions should no longer be valid
     //onmouseleave  id game
 }
@@ -37,4 +39,12 @@ function reset_game() {
     start_game();
 }
 
-function end_game() {}
+function end_game() {
+    for (var i = 0; i < document.getElementsByClassName("boundary").length; i++) {
+        document
+            .getElementsByClassName("boundary")
+            .item(i)
+            .removeEventListener("mouseover", color_divs);
+    }
+    document.getElementById("end").removeEventListener("click", end_game, false);
+}
