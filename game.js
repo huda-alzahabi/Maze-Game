@@ -27,18 +27,16 @@ function start_game() {
     outside_game = document.getElementById("game");
     outside_game.addEventListener("mouseleave", cheating_alert, false);
 
+    //calculating the time for each game played and updating the live time accordingly
     var startTime = Date.now();
 
     interval = setInterval(function() {
         elapsedTime = Date.now() - startTime;
-
-        var live_time = document.getElementById("live_timer");
+        live_time = document.getElementById("live_timer");
         live = (elapsedTime / 1000).toFixed(2);
         live_time.innerHTML = "Live <br>" + live;
     }, 100);
-    //  time_array.push(live);
 
-    //console.log(time_array);
     //if the user clicks on E, the game ends
     e_box = document.getElementById("end");
     e_box.addEventListener("mouseover", end_game, true);
@@ -47,11 +45,14 @@ function start_game() {
 function color_divs() {
     //decrement the score by 10 upon each wall hit
     score -= 10;
+
+    //if the user hits the divs the timer will reset
+    live_time.innerHTML = "Live <br>0:00";
     clearInterval(interval);
 
     //update the score
-    //scoretext = document.getElementsByClassName("example").item(0);
-    scoretext.innerHTML = "SCORE:" + score;
+    scoretext = document.getElementsByClassName("score").item(0);
+    scoretext.innerHTML = "Your score:" + score;
 
     //change color of walls to red
     //boundaries = document.getElementsByClassName("boundary");
@@ -77,9 +78,12 @@ function reset_game() {
 function end_game() {
     //increment the score if the user reached the end
     score += 5;
-    console.log(live);
+
+    //save the values of the time for each game played in an array
+    //get the minimum of these values being the best time
+    //get the one before the end of the array being the last time (prev), since the end will be saved for the current time
+
     time_array.push(live);
-    console.log(time_array);
     var best_time = Math.min.apply(Math, time_array);
     document.getElementById("best_timer").innerHTML = "Best <br>" + best_time;
     if (time_array.length > 1) last_time = time_array[time_array.length - 2];
