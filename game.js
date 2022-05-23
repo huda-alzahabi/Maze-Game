@@ -10,6 +10,8 @@ var elapsedTime = 0;
 var last_time = 0;
 
 function press_start() {
+    //when right clicking S, reset the game and the best time
+    document.getElementById("start").addEventListener("contextmenu", deep_reset);
     //when clicking S, reset the game
     document
         .getElementById("start")
@@ -126,4 +128,10 @@ function remover() {
         boundaries.item(i).style.backgroundColor = "#eeeeee";
     }
     e_box.removeEventListener("click", end_game, true);
+}
+
+function deep_reset() {
+    //reset the game and empty the array, to reset the best time
+    time_array = [];
+    reset_game();
 }
