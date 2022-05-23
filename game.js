@@ -5,6 +5,9 @@ var outside_game;
 var e_box;
 var scoretext;
 var interval;
+let time_array = [];
+var elapsedTime = 0;
+var live;
 
 function press_start() {
     //when clicking S, reset the game
@@ -27,11 +30,15 @@ function start_game() {
     var startTime = Date.now();
 
     interval = setInterval(function() {
-        var elapsedTime = Date.now() - startTime;
-        document.getElementById("live_timer").innerHTML =
-            "Live <br>" + (elapsedTime / 1000).toFixed(2);
-    }, 100);
+        elapsedTime = Date.now() - startTime;
 
+        var live_time = document.getElementById("live_timer");
+        live = (elapsedTime / 1000).toFixed(2);
+        live_time.innerHTML = "Live <br>" + live;
+    }, 100);
+    //  time_array.push(live);
+
+    //console.log(time_array);
     //if the user clicks on E, the game ends
     e_box = document.getElementById("end");
     e_box.addEventListener("mouseover", end_game, true);
@@ -70,6 +77,11 @@ function reset_game() {
 function end_game() {
     //increment the score if the user reached the end
     score += 5;
+    console.log(live);
+    time_array.push(live);
+    console.log(time_array);
+    var best_time = Math.min.apply(Math, time_array);
+    document.getElementById("best_timer").innerHTML = "Best <br>" + best_time;
     clearInterval(interval);
 
     //check if the score is positive, and tell the user that he won, otherwise he lost
