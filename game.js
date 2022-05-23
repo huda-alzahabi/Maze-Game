@@ -61,6 +61,9 @@ function color_divs() {
     for (var i = 0; i < boundaries.length; i++) {
         boundaries.item(i).style.backgroundColor = "red";
     }
+    //remove eventlisteners when the user loses, to stop handling userclicks
+    outside_game.removeEventListener("mouseleave", cheating_alert, false);
+    e_box.removeEventListener("click", end_game, true);
 }
 
 function reset_game() {
@@ -105,7 +108,7 @@ function end_game() {
     remover();
 
     //update the final score
-    scoretext.innerHTML = "Your" + score;
+    scoretext.innerHTML = "Your score:" + score;
 }
 
 function cheating_alert() {
@@ -132,6 +135,6 @@ function remover() {
 
 function deep_reset() {
     //reset the game and empty the array, to reset the best time
-    time_array = [];
+    best_time = 0;
     reset_game();
 }
