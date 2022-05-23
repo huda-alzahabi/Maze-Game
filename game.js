@@ -4,10 +4,13 @@ var boundaries;
 var outside_game;
 var e_box;
 var scoretext;
+var interval;
 
 function press_start() {
     //when clicking S, reset the game
-    document.getElementById("start").addEventListener("click", reset_game, true);
+    document
+        .getElementById("start")
+        .addEventListener("mouseover", reset_game, true);
 }
 
 function start_game() {
@@ -21,14 +24,23 @@ function start_game() {
     outside_game = document.getElementById("game");
     outside_game.addEventListener("mouseleave", cheating_alert, false);
 
+    var startTime = Date.now();
+
+    interval = setInterval(function() {
+        var elapsedTime = Date.now() - startTime;
+        document.getElementById("live_timer").innerHTML =
+            "Live <br>" + (elapsedTime / 1000).toFixed(2);
+    }, 100);
+
     //if the user clicks on E, the game ends
     e_box = document.getElementById("end");
-    e_box.addEventListener("click", end_game, true);
+    e_box.addEventListener("mouseover", end_game, true);
 }
 
 function color_divs() {
     //decrement the score by 10 upon each wall hit
     score -= 10;
+    clearInterval(interval);
 
     //update the score
     //scoretext = document.getElementsByClassName("example").item(0);
@@ -44,8 +56,8 @@ function color_divs() {
 function reset_game() {
     //initial score before game starts or after reset back to 0
     score = 0;
-    scoretext = document.getElementsByClassName("example").item(0);
-    scoretext.innerHTML = "SCORE:" + score;
+    scoretext = document.getElementsByClassName("score").item(0);
+    scoretext.innerHTML = "Your score:" + score;
 
     //return the original colors of the walls
     boundaries = document.getElementsByClassName("boundary");
@@ -58,16 +70,15 @@ function reset_game() {
 function end_game() {
     //increment the score if the user reached the end
     score += 5;
+    clearInterval(interval);
 
     //check if the score is positive, and tell the user that he won, otherwise he lost
-    if (score > 0) document.getElementById("status").innerHTML = "You Win";
-    else if (score < 0) document.getElementById("status").innerHTML = "You Lose";
-    else
+    if (score > 0) document.getElementById("status").innerHTML = "You Win!";
+    else if (score < 0) {
+        document.getElementById("status").innerHTML = "You Lose!";
+    } else
         document.getElementById("status").innerHTML =
         'Begin by moving your mouse over the "S".';
-
-    //update the final score
-    scoretext.innerHTML = "SCORE:" + score;
 
     //remove eventlisteners when game ends, to stop handling userclicks
     remover();
@@ -79,6 +90,7 @@ function end_game() {
 function cheating_alert() {
     //alert the user when he's caught cheating
     window.alert("Caught you cheating!");
+    clearInterval(interval);
 
     //remove all eventlisteners because he cheated, he should restart the game to play
     remover();
