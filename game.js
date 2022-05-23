@@ -47,7 +47,7 @@ function start_game() {
 function color_divs() {
     //decrement the score by 10 upon each wall hit
     score -= 10;
-
+    live = "0:00";
     //if the user hits the divs the timer will reset
     live_time.innerHTML = "Live <br>0:00";
     clearInterval(interval);
@@ -105,7 +105,7 @@ function end_game() {
     remover();
 
     //update the final score
-    scoretext.innerHTML = "SCORE:" + score;
+    scoretext.innerHTML = "Your" + score;
 }
 
 function cheating_alert() {
