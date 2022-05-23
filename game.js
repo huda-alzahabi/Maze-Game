@@ -7,7 +7,7 @@ var scoretext;
 var interval;
 let time_array = [];
 var elapsedTime = 0;
-var live;
+var last_time = 0;
 
 function press_start() {
     //when clicking S, reset the game
@@ -82,6 +82,9 @@ function end_game() {
     console.log(time_array);
     var best_time = Math.min.apply(Math, time_array);
     document.getElementById("best_timer").innerHTML = "Best <br>" + best_time;
+    if (time_array.length > 1) last_time = time_array[time_array.length - 2];
+    else last_time = "";
+    document.getElementById("last_timer").innerHTML = "Last <br>" + last_time;
     clearInterval(interval);
 
     //check if the score is positive, and tell the user that he won, otherwise he lost
