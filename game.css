@@ -107,3 +107,21 @@ neighboring elements.  Necessary to avoid giving ids to the boundary divs
     height: 150px;
     width: 98px;
 }
+
+.time {
+    width: 10%;
+    display: flex;
+    margin: auto;
+}
+
+.centered_text {
+    text-align: center;
+}
+
+.bold_text {
+    font-weight: bold;
+}
+
+.time>div {
+    width: 33%;
+}
