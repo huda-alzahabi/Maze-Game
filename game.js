@@ -11,11 +11,11 @@ var last_time = 0;
 
 function press_start() {
     //when right clicking S, reset the game and the best time
-    document.getElementById("start").addEventListener("contextmenu", deep_reset);
-    //when clicking S, reset the game
     document
         .getElementById("start")
-        .addEventListener("mouseover", reset_game, true);
+        .addEventListener("contextmenu", deep_reset, true);
+    //when clicking S, reset the game
+    document.getElementById("start").addEventListener("click", reset_game, true);
 }
 
 function start_game() {
@@ -64,6 +64,7 @@ function color_divs() {
     //remove eventlisteners when the user loses, to stop handling userclicks
     outside_game.removeEventListener("mouseleave", cheating_alert, false);
     e_box.removeEventListener("click", end_game, true);
+    document.getElementById("status").innerHTML = "You Lose!";
 }
 
 function reset_game() {
@@ -135,6 +136,6 @@ function remover() {
 
 function deep_reset() {
     //reset the game and empty the array, to reset the best time
-    best_time = 0;
+    time_array.fill(0);
     reset_game();
 }
